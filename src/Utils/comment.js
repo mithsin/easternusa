@@ -1,0 +1,1 @@
+export const composeClassName = (...classNames) => classNames.filter((c) => c).join(' ');

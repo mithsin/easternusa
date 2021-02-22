@@ -1,0 +1,1 @@
+export {default as SubjectInfoBlock} from './SubjectInfoBlock.jsx';
