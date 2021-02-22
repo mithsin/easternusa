@@ -19,7 +19,7 @@ const Home = () => {
     const isAdminLoggedIn = useSelector(isAdminPermissionSlice);
     const isClientLoggedIn = useSelector(isClientPermissionSlice);
     const [projectData, setProjectData] = useState();
-    const [projectStateArray, setProjectStateArray] = useState(projectState);
+    // const [projectStateArray, setProjectStateArray] = useState(projectState);
 
     const handleSearchOnClick = (inputText) => {
         const searchResponse = dispatch(projectSliceSearch(inputText));
@@ -44,8 +44,7 @@ const Home = () => {
         }
 
     }
-    console.log('projectState-->: ', projectState)
-    console.log('projectStateArray--->: ', projectStateArray.length < 1)
+
     return(
         <div>
             <h2>WELCOME</h2>
@@ -60,14 +59,14 @@ const Home = () => {
                 isClientLoggedIn && 
                     <>
                         <h2>Client table</h2>
-                        <Table arrayData={(projectStateArray.length > 1) ? projectStateArray : projectState} acctType="Client"/>
+                        <Table acctType="Client"/>
                     </>
             }
             {
                 isAdminLoggedIn && 
                     <h2>
                         <h2>Admin table</h2>
-                        <Table arrayData={(projectStateArray.length > 1) ? projectStateArray : projectState} acctType="Admin" setArrayData={setProjectStateArray}/>
+                        <Table acctType="Admin"/>
                     </h2>
             }
         </div>

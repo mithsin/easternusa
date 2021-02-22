@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { projectOne } from 'mockConstant/mockProjectData';
-import { setUpdateProject } from 'States/projectsSlice';
+import { setUpdateProject, setUpdateprojectBackEndData } from 'States/projectsSlice';
 
 const initState = {
     isLoggedIn: false,
@@ -35,6 +35,7 @@ export const {
 } = userSlice.actions;
 
 export const userLogin = ({eMail, password}) => (dispatch, getState) => {
+    const projectsState = getState().projectsState.projectBackEndData;
     if(eMail.toLowerCase() === "admin@admin.com"){
         dispatch(setUserState({
             isLoggedIn: true,
@@ -42,6 +43,7 @@ export const userLogin = ({eMail, password}) => (dispatch, getState) => {
             isClientPermission: false,
         }))
         dispatch(setUpdateProject(projectOne))
+        dispatch(setUpdateprojectBackEndData(projectsState))
     }
     if(eMail.toLowerCase() === "client@client.com"){
         dispatch(setUserState({
@@ -52,7 +54,7 @@ export const userLogin = ({eMail, password}) => (dispatch, getState) => {
                 clientId: 'client-1234'
             }
         }))
-        dispatch(setUpdateProject(projectOne.filter(project => project.clientId === 'client-1234')))
+        dispatch(setUpdateProject(projectsState.filter(project => project.clientId === 'client-1234')))
     }
 };
 

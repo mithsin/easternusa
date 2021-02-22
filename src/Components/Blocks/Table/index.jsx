@@ -1,9 +1,25 @@
 import React, {useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    isLoggedInSlice,
+    isAdminPermissionSlice,
+    isClientPermissionSlice,
+} from 'States/userSlice';
+import {
+    projectBackEndDataStateSlice,
+    setUpdateprojectBackEndData,
+    setUpdateProject,
+    projectSliceSearch,
+    projectStateSlice
+} from 'States/projectsSlice';
 import './styles.scss';
 
-const Table = ({arrayData, acctType, setArrayData}) => {
+const Table = ({acctType}) => {
+    const dispatch = useDispatch();
+    const projectState = useSelector(projectStateSlice);
+    const projectbkD = useSelector(projectBackEndDataStateSlice);
 
-    console.log('arrayData--->: ', arrayData)
+    // console.log('projectState--->: ', projectState)
     const TableHeader = ({obj}) => {
         const headerRender = [];
       
@@ -39,8 +55,8 @@ const Table = ({arrayData, acctType, setArrayData}) => {
     const TableAdminBodyLi = ({obj}) => {
         const handleToggleBool = (iobj, ikey, ivalue) => {
             const updateObj = {...iobj, [ikey]: !ivalue};
-            setArrayData(arrayData.map(item => (item.projectId === obj.projectId) ? updateObj : item))
-            
+            dispatch(setUpdateProject(projectbkD.map(item => (item.projectId === obj.projectId) ? updateObj : item)))
+            dispatch(setUpdateprojectBackEndData(projectbkD.map(item => (item.projectId === obj.projectId) ? updateObj : item)))
         }
 
         const bodyRender = [];
@@ -61,13 +77,13 @@ const Table = ({arrayData, acctType, setArrayData}) => {
             {bodyRender}
         </li>
     }
-
+    console.log('projectbkD--->: ', projectbkD)
     return (
         <ul className={`tableUl${acctType}`}>
-            <TableHeader obj={arrayData[0]} />
+            <TableHeader obj={projectbkD[0]} />
             { (acctType === "Client")
-                ? arrayData.map((list, index) => <TableBodyLi key={`li-${index}`} obj={list} />)
-                : arrayData.map((list, index) => <TableAdminBodyLi key={`li-${index}`} obj={list} />)
+                ? projectbkD.map((list, index) => <TableBodyLi key={`li-${index}`} obj={list} />)
+                : projectbkD.map((list, index) => <TableAdminBodyLi key={`li-${index}`} obj={list} />)
                 
             }
         </ul>

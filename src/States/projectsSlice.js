@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { projectOne } from 'mockConstant/mockProjectData';
 
 const initState = {
+    projectBackEndData: projectOne,
     projects: [],
 }
 
@@ -12,6 +13,9 @@ export const projectsSlice = createSlice({
         setprojectsState: (state, action) => {
             return {...state, ...action.payload};
         },
+        setUpdateprojectBackEndData: (state, action) => {
+            state.projectBackEndData = action.payload;
+        },
         setUpdateProject: (state, action) => {
             state.projects = action.payload;
         },
@@ -20,6 +24,7 @@ export const projectsSlice = createSlice({
 
 export const {
     setprojectsState,
+    setUpdateprojectBackEndData,
     setUpdateProject
 } = projectsSlice.actions;
 
@@ -30,5 +35,6 @@ export const projectSliceSearch = (idNumber) => (dispatch, getState) => {
     return foundByprojectId
 }
 
+export const projectBackEndDataStateSlice = state => state.projectsState.projectBackEndData;
 export const projectStateSlice = state => state.projectsState.projects;
 export default projectsSlice.reducer;
