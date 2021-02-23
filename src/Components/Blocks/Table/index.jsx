@@ -77,12 +77,11 @@ const Table = ({acctType}) => {
             {bodyRender}
         </li>
     }
-    console.log('projectbkD--->: ', projectbkD)
     return (
         <ul className={`tableUl${acctType}`}>
             <TableHeader obj={projectbkD[0]} />
             { (acctType === "Client")
-                ? projectbkD.map((list, index) => <TableBodyLi key={`li-${index}`} obj={list} />)
+                ? projectState.map((list, index) => <TableBodyLi key={`li-${index}`} obj={list} />)
                 : projectbkD.map((list, index) => <TableAdminBodyLi key={`li-${index}`} obj={list} />)
                 
             }

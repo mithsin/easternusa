@@ -43,7 +43,7 @@ export const userLogin = ({eMail, password}) => (dispatch, getState) => {
             isClientPermission: false,
         }))
         dispatch(setUpdateProject(projectOne))
-        dispatch(setUpdateprojectBackEndData(projectsState))
+        dispatch(setUpdateprojectBackEndData(projectOne))
     }
     if(eMail.toLowerCase() === "client@client.com"){
         dispatch(setUserState({
