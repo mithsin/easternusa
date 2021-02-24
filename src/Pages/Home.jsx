@@ -64,10 +64,10 @@ const Home = () => {
             }
             {
                 isAdminLoggedIn && 
-                    <h2>
+                    <>
                         <h2>Admin table</h2>
                         <Table acctType="Admin"/>
-                    </h2>
+                    </>
             }
         </div>
     )
