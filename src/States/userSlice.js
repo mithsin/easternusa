@@ -69,10 +69,6 @@ export const userLogout = ({history}) => dispatch => {
 
 };
 
-export const userLoginCheck = () => (dispatch, getState) => {
-
-};
-
 export const userStateSlice = state => state.userState;
 export const isLoggedInSlice = state => state.userState.isLoggedIn;
 export const isAdminPermissionSlice = state => state.userState.isAdminPermission;

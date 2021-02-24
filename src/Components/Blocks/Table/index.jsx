@@ -37,17 +37,19 @@ const Table = ({acctType}) => {
         </li>
     };
 
-    const TableBodyLi = ({obj}) => {
+    const TableBodyLi = ({obj, objIndex}) => {
         const bodyRender = [];
         for(const key in obj){
             bodyRender.push( 
-                <span key={`${key}`}>
+                <span key={`${key}`} style={{marginBottom: '50px'}}>
                     {
                         ((obj[key] === false || obj[key] === true) && 
                         (obj[key] === false 
                             ? "waiting"
                             : "completed")) ||
-                        <span key={`${key}`}>{`${obj[key]}`}</span>
+                        ((key === "comments") && 
+                        <InputMessage dataRef={objIndex} initObj={obj}/>) ||
+                    <span key={`${key}`}>{`${obj[key]}`}</span>
                     }
                 </span>)
         }
@@ -85,6 +87,7 @@ const Table = ({acctType}) => {
                         ? objectUpdated
                         : item
                 )))
+                setOpenBox(-1)
             };
             const handleFormInput = e => {
                 setOnInputChange(e.target.value)
@@ -171,7 +174,7 @@ const Table = ({acctType}) => {
         <ul className={`tableUl${acctType}`}>
             <TableHeader obj={projectbkD[0]} />
             { (acctType === "Client")
-                ? projectState.map((list, index) => <TableBodyLi key={`li-${index}`} objIndex={index} obj={list} />)
+                ? projectState.map((list, index) => (list.clientId === "client-1234") && <TableBodyLi key={`li-${index}`} objIndex={index} obj={list} />)
                 : projectbkD.map((list, index) => <TableAdminBodyLi key={`li-${index}`} objIndex={index} obj={list} />)
                 
             }
